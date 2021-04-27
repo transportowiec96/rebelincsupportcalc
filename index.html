@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>    
+    <head>
+        <title>most efficient</title>
+        <script type="text/javascript" src="script.js"></script>
+        <style>
+            span
+            {
+                margin:auto;
+            }
+            #best_generation
+            {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>   
+        <div style='display:flex;'>
+        <div><button onclick="run(1)">start</button><br> <button onclick="run(10)">start 10</button><br> <button onclick="run(100)">start 100</button><br> <button onclick="run(1000)">start 1000</button><br> <button onclick="run(10000)">start 10000</button></div>
+        <div>
+            settings: (i don't check for correct input cuz im lazy)<br>
+            accessibility <input id='access' type='number' value='0.3'><br>
+            turn deadline <input id='deadline' type='number' value='260'> (260=2006)<br> 
+            starting funds <input id='funders' type='number' value='24'><br>
+            <button onclick="reset()">reset best gen</button><br>
+            <button onclick="resetAll()">reset all gens</button><br>
+            <input class='disable' id='services' type="checkbox">disable services discussions<br>
+            <input class='disable' id='meds' type="checkbox">disable meds<br>
+            <input class='disable' id='water' type="checkbox">disable water<br>
+            <input class='disable' id='schools' type="checkbox">disable schools<br>
+            <input class='disable' id='jobs' type="checkbox">disable jobs discussions<br>
+            <input class='disable' id='genericjob' type="checkbox">disable generic jobs<br>
+            <input class='disable' id='agricultural' type="checkbox">disable agricultural jobs<br>
+            <input class='disable' id='city' type="checkbox">disable city jobs<br>
+            <input class='disable' id='remote' type="checkbox">disable remote subs <br>
+            <input class='disable' id='infra' type="checkbox">disable infra discussions<br>
+            <input class='disable' id='electricity' type="checkbox">disable electricity <br>
+            <input class='disable' id='roads' type="checkbox">disable roads<br>
+        </div>
+        <span id='most_cost_efficient'>No generations yet;</span>
+     <span id='best_generation'>None yet;</span>
+    </div>
+    </body>
+    
+</html>
