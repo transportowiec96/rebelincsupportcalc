@@ -60,7 +60,7 @@ function supportEachIni(arr)
     var total = 0
     for(i=0;i<arr.length;i+=1)
     {
-        total += support(arr[i])
+        total += arr[i].support*0.4*pr_mod;
     }
     return Math.floor(total*100)/100;
 }
@@ -187,7 +187,7 @@ var bought_inis = [];
 var combinations = []
 var deadline = (54+72+72+72); //january 2006
 const starting_budget = 24;
-const pr_mod = 0.45;
+const pr_mod = 1.9;
 var accessibility = 0.3;
 var budget = starting_budget;
 let mostEff = -1;
