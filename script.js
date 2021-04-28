@@ -31,6 +31,10 @@ function requirementMet(init)
 }
 function banCheck(init)
 {
+    if(checkForBan === false)
+    {
+        return false;
+    }
     for(checkBan=0;checkBan<banned.length;checkBan+=1)
     {
         if(init.type === banned[checkBan])
@@ -53,7 +57,7 @@ function notBoughtAlready(init)
 }
 function support(init)
 {
-    return ((init.support*0.4*pr_mod)+(init.hostile*0.4*pr_mod));
+    return ((init.support*0.4*pr_mod)+(init.hostile*(serviceEffect)*0.4*pr_mod));
 }
 function supportEachIni(arr)
 {
@@ -183,6 +187,7 @@ const initiatives =
     new ini("Road Building 1",8,0.3,0.3,38,"Infra Discussions",'roads'),
     new ini("Road Building 2",8,0.3,0.3,38,"Road Building 1",'roads'),
 ];
+const reps = new ini("District Representatives",12,1,1,27.78,"",'reps');
 var bought_inis = [];
 var combinations = []
 var deadline = (54+72+72+72); //january 2006
@@ -197,9 +202,12 @@ let gen = 1;
 let best_gen_info = [];
 let banned = [];
 let gen_info =[];
+let checkForBan = false;
+let serviceEffect = 0.08;
 function run(num)
 {
     deadline = document.getElementById('deadline').value*1;
+    serviceEffect = document.getElementById('servEff').value*1;
     banned = [];
     var classes = document.getElementsByClassName('disable');
     for(bans=0;bans<classes.length;bans+=1)
@@ -208,6 +216,14 @@ function run(num)
         {
             banned.push(classes[bans].id);
         }
+    }
+    if (banned.length === 0)
+    {
+        checkForBan = false;
+    }
+    else
+    {
+        checkForBan = true;
     }
     console.log(banned);
     for(runner=0;runner<num;runner+=1)
@@ -223,6 +239,10 @@ function start()
         let available = [...initiatives];;
         console.log(available);
         bought_inis = [];
+        if(document.getElementById('reps').checked)
+        {
+            bought_inis.push(reps);
+        }
         budget = document.getElementById('funders').value*1;
         if(requirementMet(available[z]) && notBoughtAlready(available[z]) && available[z].price <= budget && !banCheck(available[z]))
         {
