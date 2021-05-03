@@ -10,9 +10,23 @@ class ini {
         this.type = tp;
     }
 }
-function supportOverTime(init)
+function supportOverTime(arr,ininumber)
 {
-    return ((deadline-(init.costtobuild / (1+accessibility)))*support(init))
+    if(ininumber === hammers || ininumber > hammers)
+    {
+        let previous_inis = 0;
+        for(i = hammers;i<=ininumber;i+=hammers)
+        {
+
+            previous_inis += buildTime(arr[ininumber-i])
+        }
+        return ((deadline-previous_inis)-buildTime(arr[ininumber])*support(arr[ininumber]));
+    }
+    return (deadline-buildTime(arr[ininumber])*support(arr[ininumber]));
+}
+function buildTime(init)
+{
+    return init.costtobuild/(1+accessibility);
 }
 function requirementMet(init)
 {
@@ -57,7 +71,7 @@ function notBoughtAlready(init)
 }
 function support(init)
 {
-    return ((init.support*0.4*pr_mod)+(init.hostile*(serviceEffect)*0.4*pr_mod));
+    return ((init.support*0.4*pr_mod)+(init.hostile*(serviceEffect)*pr_mod));
 }
 function supportEachIni(arr)
 {
@@ -74,7 +88,7 @@ function efficiency(arr)
     for(i=0;i<arr.length;i++)
     {
 
-        eff += supportOverTime(arr[i]);
+        eff += supportOverTime(arr,i);
     }
     return Math.floor(eff*100)/100;
 }
@@ -192,7 +206,7 @@ var bought_inis = [];
 var combinations = []
 var deadline = (54+72+72+72); //january 2006
 const starting_budget = 24;
-const pr_mod = 1.9;
+let pr_mod = 1.9;
 var accessibility = 0.3;
 var budget = starting_budget;
 let mostEff = -1;
@@ -204,10 +218,20 @@ let banned = [];
 let gen_info =[];
 let checkForBan = false;
 let serviceEffect = 0.08;
+let hammers = 1;
 function run(num)
 {
     deadline = document.getElementById('deadline').value*1;
-    serviceEffect = document.getElementById('servEff').value*1;
+    serviceEffect = Math.pow((document.getElementById('servEff').value*1)/100,(2/3))*(1+((document.getElementById('servEff').value*1)/100)*0.5);
+    hammers = document.getElementById('zoneType').value*1;
+    if(document.getElementById('pr_check').checked)
+    {
+        pr_mod = 1.9;
+    }
+    else
+    {
+        pr_mod = 1;
+    }
     banned = [];
     var classes = document.getElementsByClassName('disable');
     for(bans=0;bans<classes.length;bans+=1)
@@ -225,7 +249,7 @@ function run(num)
     {
         checkForBan = true;
     }
-    console.log(banned);
+    //console.log(banned);
     for(runner=0;runner<num;runner+=1)
     {
         start();
@@ -235,9 +259,9 @@ function start()
 {
     for(z=0;z<initiatives.length;z+=1)
     {
-        console.log('new combo');
+        //console.log('new combo');
         let available = [...initiatives];;
-        console.log(available);
+        //console.log(available);
         bought_inis = [];
         if(document.getElementById('reps').checked)
         {
@@ -248,7 +272,7 @@ function start()
         {
             buyIni(available[z]);
             available.splice(z, 1);
-            console.log("bought " + available[z].name)
+            //console.log("bought " + available[z].name)
         }
         while (budget>0 && budget>findCheapestIni(available))
         {
@@ -266,7 +290,7 @@ function start()
             {
                 j = findInInis(ableness[j].name,available);
                 buyIni(available[j]);
-                console.log("bought " + available[j].name)
+                //console.log("bought " + available[j].name)
                 available.splice(j, 1);
             }
             else

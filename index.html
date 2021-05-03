@@ -19,14 +19,16 @@
         <div style='display:flex;'>
         <div><button onclick="run(1)">start</button><br> <button onclick="run(10)">start 10</button><br> <button onclick="run(100)">start 100</button><br> <button onclick="run(1000)">start 1000</button><br> <button onclick="run(10000)">start 10000</button></div>
         <div>
-            settings: (i don't check for correct input cuz im lazy)[pr already included]<br>
+            settings: (i don't check for correct input cuz im lazy)<br>
             accessibility <input id='access' type='number' value='0.3'><br>
             turn deadline <input id='deadline' type='number' value='212'> (260=2006)<br> 
             starting funds <input id='funders' type='number' value='24'><br>
-            service effect modifier <input id='servEff' type='number' value='0.08'><br>
+            hostility percent <input id='servEff' type='number' value='10'><br>
+            zone type <select id='zoneType'><option value="4">urban/rural</option><option value="2">remote</option></select><br>
             <button onclick="reset()">reset best gen</button><br>
             <button onclick="resetAll()">reset all gens</button><br>
             <input id='reps' type="checkbox">include district reps<br>
+            <input id='pr_check' type="checkbox">include pr1<br>
             <input class='disable' id='services' type="checkbox">disable services discussions<br>
             <input class='disable' id='meds' type="checkbox">disable meds<br>
             <input class='disable' id='water' type="checkbox">disable water<br>
